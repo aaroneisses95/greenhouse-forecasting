@@ -30,4 +30,4 @@ For this assignment the commands are:
     ```bash
     git clone git@github.com:<your_username>/source-assignment-data-science.git
     ```
-6. Add the reviewers as collaborators to your new repository: paula13, cedricfr, estellerambier, igorol, msturan
+6. Add the reviewers as collaborators to your new repository: paula13, cedricfr, tplatenburg and rubenmak
