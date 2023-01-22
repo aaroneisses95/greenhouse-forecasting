@@ -11,3 +11,4 @@ __pycache__
 # Metrics
 metrics_report_test.txt
 metrics_report_train.txt
+prediction_plot.png

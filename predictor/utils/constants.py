@@ -9,4 +9,4 @@ TEAMS = ["AICU", "Automatoes", "Digilog", "Grower", "IUACAAS", "TheAutomators"]
 
 # The features that have been selected during the exploration. These are based on training on
 # the dataset of the Automatoes.
-SELECTED_FEATURES = ["Iglob", "PARout", "Rhout", "Tout", "HumDef", "Tair", "t_heat_sp"]
+SELECTED_FEATURES = ["Iglob", "Rhout", "Tout", "HumDef", "Tair", "t_heat_sp"]
