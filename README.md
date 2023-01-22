@@ -173,7 +173,7 @@ In this directory you will find:
 ### 4.4 Test new data
 To test new data on our model we can use the `runner.ipynb` notebook in the `notebooks` folder of the repo. This will load the pickle file of the model that is stored in `../mlruns/0/<experiment_id>/artifacts/model`.
 
-Add the new test data (both Weather and GreenhouseClimate) to the `notebooks/input` folder. There are already two dummy data csv's (`dummy_greenhouse.csv` and `dummy_weather.csv`) which can also be used as an example. Since our model needs to predict up to 24 hours in advance (`t<=24`), with 1 hour timesteps, we expect that the new data sets will not have more than 24 rows and the values in the `time` column should be integers between 0 and 24.
+Add the new test data (both Weather and GreenhouseClimate) to the `notebooks/input` folder. There are already two dummy data csv's (`dummy_greenhouse.csv` and `dummy_weather.csv`) which can also be used as an example. Since our model needs to predict up to 24 hours in advance (`t<=24`), with 1 hour timesteps, we expect that the new data sets will not have more than 24 rows and the values in the `time` column should be integers between 1 and 24.
 
 Before we can run the notebook, the user should fill in the following at section `2. User input` of the runner notebook:
 - `experiment_id`: The id of the MLflow experiment
