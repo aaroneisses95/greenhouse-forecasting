@@ -1,3 +1,4 @@
 # Air-temperature model for Greenhouse climate
 
-Provide detailed information on your model and how to run it here
+Run project:
+- mlflow run source-assignment-data-science --env-manager=local --entry-point train --param-list team=Automatoes

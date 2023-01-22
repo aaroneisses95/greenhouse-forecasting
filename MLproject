@@ -1,0 +1,13 @@
+name: Greenhouse Temperature Predictor
+
+conda_env: conda.yaml
+
+entry_points:
+  train:
+    parameters:
+      team: 
+        type: str
+        default: Automatoes
+    command: >-
+      python train.py 
+      --team {team}
