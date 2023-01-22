@@ -100,7 +100,7 @@ mkdir source_project
 cd source_project
 
 # Clone this repo
-git clone https://github.com/aaroneisses95/source-assignment-data-science.git
+git clone git@github.com:aaroneisses95/source-assignment-data-science.git
 ```
 
 You should have the following structure:
