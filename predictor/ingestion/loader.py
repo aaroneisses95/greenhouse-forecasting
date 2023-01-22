@@ -1,5 +1,5 @@
 "Module for loading the data"
-from pathlib import Path
+import os
 from typing import Union
 
 import pandas as pd
@@ -17,7 +17,7 @@ class Dataloader:
     >>> from predictor.ingestion.loader import Dataloader
     >>>
     >>> dataloader = Dataloader()
-    >>> data = dataloader.ingest_data()
+    >>> data = dataloader.ingest_data(team="Automatoes")
     """
 
     def __init__(self) -> None:
@@ -43,11 +43,7 @@ class Dataloader:
         if team not in TEAMS:
             raise ValueError(f"Team {team} does not exist")
 
-        path_greenhouse_csv = (
-            Path(__file__)
-            .resolve()
-            .parent.parent.parent.joinpath(f"data/{team}/GreenhouseClimate.csv")
-        )
+        path_greenhouse_csv = os.path.abspath(f"data/{team}/GreenhouseClimate.csv")
 
         df_greenhouse = pd.read_csv(path_greenhouse_csv)
         df_weather = pd.read_csv(PATH_WEATHER_CSV)
