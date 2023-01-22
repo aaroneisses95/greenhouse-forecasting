@@ -1,0 +1,11 @@
+name: Greenhouse Temperature Predictor
+
+entry_points:
+  train:
+    parameters:
+      team: 
+        type: str
+        default: Automatoes
+    command: >-
+      python train.py 
+      --team {team}

@@ -1,0 +1,14 @@
+.vscode
+
+# Environments
+.env 
+.venv
+
+# Python
+__pycache__
+.ipynb_checkpoints
+
+# Metrics
+metrics_report_test.txt
+metrics_report_train.txt
+prediction_plot.png
