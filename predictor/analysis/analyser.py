@@ -48,9 +48,6 @@ def generate_prediction_intervals(
     predictions = np.zeros((N_SAMPLES, len(X_test)))
 
     for i in range(N_SAMPLES):
-        print("\n")
-        print(f"Sample: {i}")
-        print("\n")
         X_resampled, y_resampled = resample(X_train, y_train)
         rf.fit(X_resampled, y_resampled)
         predictions[i] = rf.predict(X_test)
