@@ -1,4 +1,6 @@
-"Module containing the Preprocessor class"
+"""Module containing the preprocessing functionality"""
+# pylint: disable=C0103
+
 import numpy as np
 import pandas as pd
 import xlrd
@@ -6,78 +8,62 @@ import xlrd
 from predictor.utils.constants import SELECTED_FEATURES
 
 
-class Preprocessor:
+def preprocess_data(
+    df_greenhouse: pd.DataFrame, df_weather: pd.DataFrame
+) -> pd.DataFrame:
     """
-    The Preprocessor class contains the methods that preprocess the data sets
+    Preprocesses the greenhouse dataframe and the weather dataframe and joins them.
 
-    Example usage:
-    -------------
+    Args:
+        df_greenhouse (pd.DataFrame): Greenhouse dataframe
+        df_weather (pd.DataFrame): Weather dataframe
 
-    >>> from predictor.preprocessing.preprocessor import Preprocessor
-    >>>
-    >>> preprocessor = Preprocessor()
-    >>> preprocessed_data = preprocessor.preprocess_data(df_greenhouse, df_weather)
+    Returns:
+        pd.DataFrame: The preprocessed dataframe
     """
 
-    def __init__(self) -> None:
-        """
-        Initialization of the Preprocessor class.
-        """
+    df_greenhouse_preprocessed = _set_time(df_greenhouse)
+    df_weather_preprocessed = _set_time(df_weather)
 
-    def preprocess_data(
-        self, df_greenhouse: pd.DataFrame, df_weather: pd.DataFrame
-    ) -> pd.DataFrame:
-        """
-        Preprocesses the weather dataset and the greenhouse dataset and joins them.
+    df_joined = df_greenhouse_preprocessed.join(df_weather_preprocessed)
 
-        Args:
-            df_greenhouse (pd.DataFrame): Greenhouse dataset
-            df_weather (pd.DataFrame): Greenhouse dataset
+    # For an explanation on the feature selection, look in the exploration notebook or the
+    # README.md
+    df_feature_selection = df_joined[SELECTED_FEATURES]
 
-        Returns:
-            pd.DataFrame: The preprocessed and joined dataset
-        """
+    # For an explanation on the feature engineering, look in the exploration notebook or the
+    # README.md
+    df_feature_engineering = df_feature_selection.assign(
+        t=lambda df: np.arange(len(df.index)) - (len(df.index) - 1),
+        hour_of_day=lambda df: df.index.hour,
+        month=lambda df: df.index.month,
+    )
 
-        df_greenhouse_preprocessed = self._set_time(df_greenhouse)
-        df_weather_preprocessed = self._set_time(df_weather)
+    # Impute the remaining NaN values and resample to hours
+    df_output = (
+        df_feature_engineering.fillna(df_feature_engineering.mean())
+        .resample("1H")
+        .mean()
+    )
 
-        df_joined = df_greenhouse_preprocessed.join(df_weather_preprocessed)
+    return df_output
 
-        # For an explanation on the feature selection, look in the exploration notebook
-        df_feature_selection = df_joined[SELECTED_FEATURES]
 
-        # For an explanation on the feature engineering, look in the exploration notebook
-        df_feature_engineering = df_feature_selection.assign(
-            t=lambda df: np.arange(len(df.index)) - (len(df.index) - 1),
-            hour_of_day=lambda df: df.index.hour,
-            month=lambda df: df.index.month,
+def _set_time(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Convert the excel timestamp to a pandas timestamp and set as the index.
+
+    Args:
+        df (pd.DataFrame): Dataframe with a column "time" in excel format
+
+    Returns:
+        pd.DataFrame: Dataframe with new index
+    """
+
+    df_index = df.assign(
+        time=lambda df: df["time"].apply(
+            lambda col: pd.Timestamp(xlrd.xldate_as_datetime(col, 0))
         )
+    ).set_index("time")
 
-        # Impute the remaining NaN values and resample to hours
-        df_output = (
-            df_feature_engineering.fillna(df_feature_engineering.mean())
-            .resample("1H")
-            .mean()
-        )
-
-        return df_output
-
-    @staticmethod
-    def _set_time(df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Covert the timestamp to a pandas timestamp and set as the index.
-
-        Args:
-            df (pd.DataFrame): Dataframe with a column "time" in excel format
-
-        Returns:
-            pd.DataFrame: Dataframe with new index
-        """
-
-        df_index = df.assign(
-            time=lambda df: df["time"].apply(
-                lambda col: pd.Timestamp(xlrd.xldate_as_datetime(col, 0))
-            )
-        ).set_index("time")
-
-        return df_index
+    return df_index

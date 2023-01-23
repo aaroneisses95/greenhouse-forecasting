@@ -3,6 +3,7 @@
 # Environments
 .env 
 .venv
+.python-version
 
 # Python
 __pycache__

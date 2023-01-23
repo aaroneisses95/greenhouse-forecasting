@@ -2,7 +2,8 @@ install:
 	pip install -r requirements_prod.txt
 
 mypy:
-	python -m mypy -p predictor
+	python -m mypy --ignore-missing-imports -p predictor 
+	python -m mypy --ignore-missing-imports train.py
 	rm -r -rf .mypy_cache
 
 pylint:
