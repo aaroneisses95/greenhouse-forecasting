@@ -12,14 +12,13 @@ In this section there is more information about the important files and folders 
 - `data`: Folder of the input data for the model. Can be found through this link (https://drive.google.com/drive/folders/1USB4dOK9UodNt1mPiLf8-jE0TkuS94-f?usp=sharing)
 - `notebooks/exploration.ipynb`: Notebook that I used for exploring the data, feature selection, feature engineering and finding a suitable model.
 - `notebooks/runner.ipynb`: Notebook that can be used to load the trained model and test your new data.
-- `predictor`: Python package that contains the ingestion and preprocessing functionality 
+- `predictor`: Python package that contains the ingestion, preprocessing and analysis functionality 
 - `MLproject`: File that is used by MLflow to define the structure and configuration of a machine learning project.
 - `requirements_prod.txt`: The txt file with the requirements that need to be installed to train and log the model. 
 - `train.py`: The train end-point for the MLflow run. 
 
 ## 3. The model
-In this section the details of the model are explained. To get a more complete image, it could be helpful to run the `exploration.ipynb` notebook in the `notebooks` folder. 
-
+In this section the details of the model are explained. To get a more complete image, it could be helpful to run the `exploration.ipynb` notebook in the `notebooks` folder. Here you can see the logic of the choices that have been made regarding the model strategy.
 
 ### 3.1 Data selection
 In the scope of this project only the weather and the greenhouse climate dataset are used. These seemed to contain the most important features, but perhaps there were also other valuable features in the other data sets. 
@@ -83,7 +82,7 @@ Two models have been tried out:
 - Linear regression
 - Random Forest
 
-Based on the metrics, the Random Forest model seemed to be working well so this has been chosen.
+Based on the metrics, the Random Forest model seemed to be working well so this has been chosen. Overall, it showed a better performance than the linear regression model. This is because it had a lower values for the mean absolute error (MAE), the mean squared error (MSE), the root mean squared error (RMSE) and the mean absolute percentage error (MAPE). Lower values for these metrics indicate that the model is making predictions that are closer to the true values. The Random Forest model also had a higher value for the coefficient of determination (r2) indicating more accurate predictions.
 
 
 ## 4. How to run the model
@@ -149,6 +148,8 @@ This commands triggers an MLflow run with the following parameters:
 - `entry-point=train`: We will trigger our train end-point. This shouldn't be changed.
 - `team=Automatoes`: We will use the Automatoes dataset to train our model. This can be changed to the other team names that are in the `data` folder of the repo. It is case-sensitive so be aware. 
 
+It will take 10-15 minutes to run this experiment. Training the original model goes rather fast but it especially takes quite some time to calculate the prediction intervals. If you want it to run faster, that it possible (albeit at the expense of the quality of the prediction intervals). Navigate to the file `/predictor/utils/constants.py` in the repo and adjust the constant `N_SAMPLES` to a smaller number.
+
 If all went well, you will see in your terminal some output which at the end should have something similar to this:
 ```
 2023/01/22 16:46:53 INFO mlflow.projects: === Run (ID '8c7de92524144e51afe27811bc16e0f7') succeeded ===
@@ -167,7 +168,8 @@ cd mlruns/0/8c7de92524144e51afe27811bc16e0f7/artifacts
 In this directory you will find:
 - A .txt file containing the metrics (MAE, MSE, RMSE, MAPE, R2) of the train data. 
 - A .txt file containing the metrics (MAE, MSE, RMSE, MAPE, R2) of the test data.
-- A plot of the last month 2020/05/01 - 2020/05/30 with both the train data, test data and the predicted data. 
+- A plot of the last month (2020/05/01 - 2020/05/30) with both the train data, test data and the predicted data. 
+- A plot of the last five days (2020/05/25 - 2020/05/30) with both the train data, test data and the predicted data. 
 - A directory `model` containing, among other files, the pickle file of the model.
 
 ### 4.4 Test new data
