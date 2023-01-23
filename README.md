@@ -162,7 +162,7 @@ To go to the data on our example experiment, do the following:
 
 ```
 # Go to the directory of the experiment
-cd mlruns/0/8c7de92524144e51afe27811bc16e0f7/artifacts
+cd mlruns/0/<experiment_id>/artifacts
 ```
 
 In this directory you will find:
