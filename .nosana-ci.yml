@@ -15,6 +15,10 @@ jobs:
       - python -m venv count
       - . count/bin/activate
       - pip install -r requirements_prod.txt
+      - cd ..
+      - mlflow run greenhouse-forecasting --env-manager=local --entry-point train --param-list team=Automatoes
+      - ls 
+      - ls mlruns
     artifacts:
       - name: count
         path: count/
