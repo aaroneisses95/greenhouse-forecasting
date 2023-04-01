@@ -19,8 +19,7 @@ jobs:
       - cd ..
       - ls
       - mlflow run project --env-manager=local --entry-point train --param-list team=Automatoes
-      - ls 
-      - ls mlruns
+      - ls -R mlruns
     artifacts:
       - name: count
         path: count/
