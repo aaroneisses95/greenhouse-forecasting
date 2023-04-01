@@ -12,6 +12,8 @@ jobs:
   - name: install deps and build container
     commands:
       # Initialize
+      - git init
+      - git remote add origin git@github.com:aaroneisses95/greenhouse-forecasting.git
       - python -m venv count
       - . count/bin/activate
       - pip install -r requirements_prod.txt
