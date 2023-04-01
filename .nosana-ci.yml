@@ -2,7 +2,7 @@ nosana:
   description: Nosana Python Template
 
 global:
-  image: python:latest
+  image: python:3.10-buster
 
   trigger:
     branch:
