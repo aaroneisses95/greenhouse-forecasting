@@ -1,0 +1,20 @@
+nosana:
+  description: Nosana Python Template
+
+global:
+  image: python:latest
+
+  trigger:
+    branch:
+      - main
+
+jobs:
+  - name: install deps and build container
+    commands:
+      # Initialize
+      - python -m venv count
+      - . count/bin/activate
+      - pip install -r requirements_prod.txt
+    artifacts:
+      - name: count
+        path: count/
