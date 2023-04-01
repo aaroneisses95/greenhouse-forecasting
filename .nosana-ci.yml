@@ -12,15 +12,13 @@ jobs:
   - name: install deps and build container
     commands:
       # Initialize
-      - git init
-      - git remote add origin git@github.com:aaroneisses95/greenhouse-forecasting.git
       - python -m venv count
       - . count/bin/activate
       - pip install -r requirements_prod.txt
       - ls
       - cd ..
       - ls
-      - mlflow run greenhouse-forecasting --env-manager=local --entry-point train --param-list team=Automatoes
+      - mlflow run project --env-manager=local --entry-point train --param-list team=Automatoes
       - ls 
       - ls mlruns
     artifacts:
