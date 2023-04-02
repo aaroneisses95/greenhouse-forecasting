@@ -89,47 +89,47 @@ Based on the metrics, the Random Forest model seemed to be working well so this 
 To execute the code the following steps need to be followed.
 
 ### 4.1 Setting up the repo
-When you run an MLflow project, a new folder with be created called `mlruns` with information about that run. For that reason we want to create a new directory (for example `source_project`) and clone our repo in there:
+When you run an MLflow project, a new folder with be created called `mlruns` with information about that run. For that reason we want to create a new directory (for example `greenhouse_project`) and clone our repo in there:
 
 ```
 # Make a new directory
-mkdir source_project
+mkdir greenhouse_project
 
 # Go into that directory
-cd source_project
+cd greenhouse_project
 
 # Clone this repo
-git clone git@github.com:aaroneisses95/source-assignment-data-science.git
+git clone https://github.com/aaroneisses95/greenhouse-forecasting.git
 ```
 
 You should have the following structure:
-- ../source_project
-    - ../source_project/source-assignment-data-science
+- ../greenhouse_project
+    - ../greenhouse_project/greenhouse-forecasting
 
 
 ### 4.2 Setting up a new virtual environment
-In the next step we will create a new virtual environment and install the correct packages. In this example I will use an PyEnv environment called `source_env` but you can of course use something else:
+In the next step we will create a new virtual environment and install the correct packages. In this example I will use an PyEnv environment called `green_env` but you can of course use something else:
 
 ```
 # Create a new virtual environment with python version 3.8.10
-pyenv virtualenv 3.8.10 source_env
+pyenv virtualenv 3.8.10 green_env
 
 # Activate your virtual environment
-pyenv shell source_env
+pyenv shell green_env
 ```
 
 Now we will go into the repo and install the correct packages:
 
 ```
 # Enter the repo
-cd source-assignment-data-science
+cd greenhouse-forecasting
 
 # Use the `make install` command to install the necessary packages
 make install
 ```
 
 ### 4.3 Training the model
-Now that we've installed the correct dependencies, we can run our model using MLflow. To that we first have to go back to the parent directory of our repo (`../source_project`):
+Now that we've installed the correct dependencies, we can run our model using MLflow. To that we first have to go back to the parent directory of our repo (`../greenhouse_project`):
 
 ```
 # Go one directory back
@@ -140,7 +140,7 @@ When we've done that, we can run our model with the following command:
 
 ```
 # Run the model
-mlflow run source-assignment-data-science --env-manager=local --entry-point train --param-list team=Automatoes
+mlflow run greenhouse-forecasting --env-manager=local --entry-point train --param-list team=Automatoes
 ```
 
 This commands triggers an MLflow run with the following parameters:
