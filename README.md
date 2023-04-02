@@ -99,7 +99,7 @@ mkdir greenhouse_project
 cd greenhouse_project
 
 # Clone this repo
-git clone https://github.com/aaroneisses95/greenhouse-forecasting.git
+git clone git@github.com:aaroneisses95/greenhouse-forecasting.git
 ```
 
 You should have the following structure:
